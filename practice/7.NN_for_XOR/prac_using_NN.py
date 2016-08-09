@@ -8,15 +8,18 @@ y_data = np.reshape(xy[-1], (4,1))
 X = tf.placeholder(tf.float32)
 Y = tf.placeholder(tf.float32)
 
-W1 = tf.Variable(tf.random_uniform([2,2], -1.0, 1.0))
-W2 = tf.Variable(tf.random_uniform([2,1], -1.0, 1.0))
+W1 = tf.Variable(tf.random_uniform([2,5], -1.0, 1.0))
+W2 = tf.Variable(tf.random_uniform([5,4], -1.0, 1.0))
+W3 = tf.Variable(tf.random_uniform([4,1], -1.0, 1.0))
 
-b1 = tf.Variable(tf.zeros([2]), name="Bias1")
-b2 = tf.Variable(tf.zeros([1]), name="Bias2")
+b1 = tf.Variable(tf.zeros([5]))
+b2 = tf.Variable(tf.zeros([4]))
+b3 = tf.Variable(tf.zeros([1]))
 
 # Our hypothesis
 L2 = tf.sigmoid(tf.matmul(X,W1) + b1)
-hypothesis = tf.sigmoid( tf.matmul(L2,W2) + b2)
+L3 = tf.sigmoid(tf.matmul(L2,W2) + b2)
+hypothesis = tf.sigmoid( tf.matmul(L3,W3) + b3)
 
 # Cost function
 cost = -tf.reduce_mean(
